@@ -1,0 +1,42 @@
+version: '3.1'
+services:
+    mysql-db:
+        image: mysql:8.0
+        container_name: mysql-db
+        restart: always
+        environment:
+            MYSQL_DATABASE: exampledb
+            MYSQL_USER: exampleuser
+            MYSQL_PASSWORD: examplepass
+            MYSQL_RANDOM_ROOT_PASSWORD: '1'
+        ports:
+        - 3307:3306
+        volumes:
+        - db-data:/var/lib/mysql
+    node-01:
+        build: 
+            context: ./app-node
+            dockerfile: Dockerfile
+        container_name: app-node
+        hostname: app-node
+        ports:
+            - "3000:3000"
+        volumes:
+        - ./app-node:/app               #mapuje folder lokalny do kontenera
+        - /app/node_modules
+        depends_on:
+            - mysql-db
+    phpmyadmin:
+        image: phpmyadmin:5.1.1
+        environment:
+            PMA_HOST: mysql-db
+            PMA_PORT: 3306
+            PMA_USER: exampleuser
+            PMA_PASSWORD: examplepass
+        restart: always
+        ports:
+        - "8080:80"
+        depends_on:
+            - mysql-db
+volumes:
+  db-data:
