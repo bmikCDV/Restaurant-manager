@@ -13,7 +13,7 @@ Wykonali:
 ### Restaurant manager - Node
 
 1. Projekt uruchamiamy za pomocą komendy `docker compose up -d`
-2. Przy pierwszym uruchomieniu należy wykonać komendę `docker exex -ti restaurant-manager-gui_node-01 yarn` w CLI kontenera dockerowego dla app-node
+2. Przy pierwszym uruchomieniu należy wykonać komendę `yarn` w CLI kontenera dockerowego dla app-node
 3. oraz po ok minucie `npx sequelize db:migrate`
 
 ### Prosty frontend we Vue dla aplikacji do zarządzania restauracją
